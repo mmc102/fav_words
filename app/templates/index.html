@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Word Lookup</h2>
+<form method="get" action="/lookup">
+    <input type="text" name="word" placeholder="Enter a word" required>
+    <button type="submit">Lookup</button>
+</form>
+
+{% if word %}
+<h3>Definitions for "{{ word }}"</h3>
+<ul>
+    {% for item in definitions %}
+    <li>
+        <b>{{ item.partOfSpeech }}:</b> {{ item.definition }}
+        {% if item.example %}
+        <br><i>Example:</i> "{{ item.example }}"
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+<form method="post" action="/favorites" style="margin-top: 1rem;">
+    <input type="hidden" name="word" value="{{ word }}">
+    <input type="hidden" name="full_definition" value="{{ full_definition|safe }}">
+    <button type="submit">Add Full Definition to Favorites</button>
+</form>
+{% elif error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+{% endblock %}

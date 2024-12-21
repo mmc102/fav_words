@@ -1,0 +1,42 @@
+# Byte-compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and debug files
+*.log
+*.out
+*.err
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Static and cache files
+static/icons/icon-*.png
+static/cache/
+
+# Environment variables
+.env
+
+# SQLite database
+*.db
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Service worker pre-cache (if any)
+precache-manifest.*.js

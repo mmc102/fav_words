@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Favorites</h2>
+<ul>
+    {% for favorite in favorites %}
+    <li class="favorite-item" onclick="toggleDefinition(event)">
+        <div class="word-container">
+            <h3 class="word">{{ favorite.word }}</h3>
+            <span class="preview">
+                {{ favorite.definition[:50] | safe }}...
+            </span>
+        </div>
+        <div class="definition-content" style="display: none;">
+            <p>{{ favorite.definition|safe }}</p>
+            <i class="info">Favorited on:</i> {{ favorite.favorited_at.strftime('%Y-%m-%d') }}
+            <form method="post" action="/favorites/remove" style="margin-top: 1rem;">
+                <input type="hidden" name="word" value="{{ favorite.word }}">
+                <button type="submit">Remove</button>
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    function toggleDefinition(event) {
+        const item = event.currentTarget;
+        const content = item.querySelector('.definition-content');
+        const preview = item.querySelector('.preview');
+        if (content.style.display === "none") {
+            content.style.display = "block";
+            preview.style.display = "none";
+        } else {
+            content.style.display = "none";
+            preview.style.display = "inline";
+        }
+    }
+</script>
+
+<style>
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .favorite-item {
+        cursor: pointer;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: #f9f9f9;
+        transition: background 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite-item:last-child {
+        margin-bottom: 0;
+    }
+
+
+    ul::after {
+        content: '';
+        display: block;
+        height: 1rem; /* Extra space to prevent shadow clipping */
+    }
+
+    .favorite-item:hover {
+        background: #f0f0f0;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .word-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .word {
+        flex: 1;
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .preview {
+        flex: 2;
+        font-size: 0.9rem;
+        color: #666;
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .definition-content {
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #ddd;
+        display: none; /* Initially hidden */
+    }
+
+    .definition-content p {
+        margin: 0;
+    }
+</style>
+{% endblock %}

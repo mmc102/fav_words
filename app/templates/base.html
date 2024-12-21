@@ -1,0 +1,38 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Word Lookup</title>
+        <link rel="stylesheet" href="/static/styles.css">
+        <link rel="manifest" href="/static/manifest.json">
+        <meta name="theme-color" content="#007bff">
+    </head>
+    <body>
+        <header>
+            <h1><a href="/" style="text-decoration: none; color: inherit;">Word Lookup</a></h1>
+            <nav>
+                {% if request.cookies.username %}
+                <a href="/favorites">Favorites</a>
+                <a href="/">{{ request.cookies.username }}</a>
+                <form method="post" action="/logout" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+                {% else %}
+                <a href="/login">Login</a>
+                {% endif %}
+            </nav>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+    <script>
+     if ("serviceWorker" in navigator) {
+         navigator.serviceWorker
+                  .register("/static/service-worker.js")
+                  .then(() => console.log("Service Worker registered"))
+                  .catch((error) => console.error("Service Worker registration failed:", error));
+     }
+    </script>
+
+</html>
