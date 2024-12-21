@@ -1,0 +1,20 @@
+# Byte-compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Logs
+*.log
+
+# Git
+.git
+.gitignore
+
+# System files
+.DS_Store
+Thumbs.db

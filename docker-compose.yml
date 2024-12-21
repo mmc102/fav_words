@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: word_lookup_app
+    ports:
+      - "8069:8000"  # Map host port 8069 to container port 8000
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=sqlite:///./app.db
